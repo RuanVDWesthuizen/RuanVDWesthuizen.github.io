@@ -1,6 +1,6 @@
 /* Custom styles */
 body {
-  background-color: #f8f9fa; /* light gray background */
+  background-color: #f8f9fa;
 }
 
 h1 {
@@ -10,5 +10,32 @@ h1 {
 
 #message {
   font-weight: bold;
-  color: #198754; /* Bootstrap green */
+  color: #198754; 
+}
+
+/*Custom styles*/
+
+.profile-photo {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    position: absolute;
+    left: 7%;
+    transform: translateX(-50%);
+    top: 35vh;
+    border: 4px solid white;
+}
+
+.back-ground-photo {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    display: block;
+    position: relative; 
+}
+
+.photo-container {
+    position: relative; /* important for absolute child */
+    text-align: center;
+    margin-bottom: 60px;
 }
