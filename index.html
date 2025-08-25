@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to My Website</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Hello, I’m Ruan 👋</h1>
-  <p>This is my first GitHub Pages website 🚀</p>
+<body class="container mt-5">
+
+  <h1 class="text-primary text-center">Hello, I’m Ruan 👋</h1>
+  <p class="lead text-center">This is my first GitHub Pages website 🚀</p>
+
+  <div class="text-center">
+    <button id="myButton" class="btn btn-success">Click Me</button>
+    <p id="message" class="mt-3"></p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Your JS -->
+  <script src="script.js"></script>
 </body>
 </html>
