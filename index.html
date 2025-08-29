@@ -7,64 +7,85 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="container mt-5">
-    <section id="welcome-page">
-        <!--TODO: Create a header which will be the menu.-->
-        <div class="photo-container">
-            <img class="back-ground-photo" src="public/img/backGround.jpg" />
-            <img class="profile-photo" src="public/img/RuanFoto.png" />
+<body>
+    <header class="sticky-top bg-dark text-white shadow mb-5">
+        <div class="text-center py-2">
+            <h1 class="h4 mb-0">Ruan van der Westhuizen</h1>
+            <p class="mb-0">Software Developer</p>
         </div>
+    </header>
+        <div class="row">
 
-        <h1>>Hi, I’m Ruan van der Westhuizen 👋</h1>
-        <p class="lead mt-3">
-            Software Developer | .NET & Vue 3 | Full-Stack Web Applications | Passionate About Scalable, Clean Code | Hybrid & Remote Team Contributor
-        </p>
-        <p class="mt-3">
-            I’m a dedicated and growth-minded Software Developer with practical experience building and maintaining full-stack web applications using modern frameworks and technologies such as .NET (C#), Vue 3, TypeScript, HTML/CSS, and SQL. My work spans everything from front-end development and API integration to performance optimization and modular architecture.
-
-            At BeingIT, I’ve had the opportunity to contribute to real-world software challenges—developing a fully reusable e-commerce platform, enhancing internal systems with scalable components, and refining database queries to boost performance. I bring a strong focus on writing clean, maintainable code and collaborating within agile teams, especially in hybrid or remote environments where communication and clarity are key.
-
-            Driven by curiosity and continual learning, I enjoy refining the “how” as much as the “what” in development—always seeking to improve processes, systems, and user experiences through thoughtful, tested code.
-        </p>
-        <div id="experience" class="mb-5 p-4 category collapsible">
-            <!--JS event will trigger this area from experience folder.-->
-        </div>
-        <h1>Still under development (Last updated: 2025/08/26)</h1>
-        <div class="border border-dark">
-            <!--TODO: remove the elements that are fixed done.-->
-
-            <div id="qualifications" class="mb-4">
-                <h3>Qualifications</h3>
-            </div>
-            <div id="completedCourses" class="mb-4">
-                <h3>Courses completed <i class=""></i></h3>
-            </div>
-            <div id="usedTechnologies" class="mb-4">
-                <h3>Technologies used</h3>
-            </div>
-            <div id="keySkills" class="mb-4">
-                <h3>Key skills</h3>
-            </div>
-            <div id="otherWorkExp" class="mb-4">
-                <h3>Other work experience summarised</h3>
-            </div>
-
-            <!--This should be at the bottom:-->
-            <!--TODO: remove the elements that are fixed done.-->
-            <!--TODO: Create a footer-->
-            <button onclick="navToAbout" class="btn btn-primary">
-                About Me
-            </button>
+            <!--Side panel-->
+            <section id="soft-skills" class="col-3 p-2 side-bar border">
+                <div id="qualifications" class="p-2 category">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+                <div id="keySkills" class="p-2 category">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+                <div id="usedTechnologies" class="p-2 category">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+                <div id="languageProf" class="p-2 category">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+            </section>
 
 
-            <div class="mt-4">
-                <a href="cv/Ruan_CV.pdf" class="btn btn-primary btn-lg me-2">📄 Download CV</a>
-                <a href="#projects" class="btn btn-outline-dark btn-lg">🚀 View My Projects</a>
-            </div>
-        </div>
-    </section>
+            <!--Main page-->
+            <section id="welcome-page" class="col-6">
+                <div class="photo-container">
+                    <img class="back-ground-photo" src="public/img/backGround.jpg" />
+                    <img class="profile-photo" src="public/img/RuanFoto.png" />
+                </div>
+
+                <h1>Hi, I’m Ruan van der Westhuizen 👋</h1>
+                <p class="lead mt-3">
+                    Software Developer | .NET & Vue 3 | Full-Stack Web Applications | Passionate About Scalable, Clean Code | Hybrid & Remote Team Contributor
+                </p>
+                <p class="mt-3">
+                    I’m a dedicated and growth-minded Software Developer with practical experience building and maintaining full-stack web applications using modern frameworks and technologies such as .NET (C#), Vue 3, TypeScript, HTML/CSS, and SQL. My work spans everything from front-end development and API integration to performance optimization and modular architecture.
+
+                    At BeingIT, I’ve had the opportunity to contribute to real-world software challenges-developing a fully reusable e-commerce platform, enhancing internal systems with scalable components, and refining database queries to boost performance. I bring a strong focus on writing clean, maintainable code and collaborating within agile teams, especially in hybrid or remote environments where communication and clarity are key.
+
+                    Driven by curiosity and continual learning, I enjoy refining the “how” as much as the “what” in development-always seeking to improve processes, systems, and user experiences through thoughtful, tested code.
+                </p>
+                <div id="experience" class="p-2 category collapsible">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+                <div id="otherWorkExp" class="p-2 category collapsible">
+                    <!--JS event will trigger this area from experience folder.-->
+                </div>
+
+
+                <h1>Still under development (Last updated: 2025/08/29)</h1>
+                <div class="border border-dark">
+                    <!--This should be at the bottom:-->
+                    <!--TODO: remove the elements that are fixed done.-->
+                    <button onclick="navToAbout" class="btn btn-primary">
+                        About Me
+                    </button>
+
+
+                    <div class="mt-4">
+                        <a href="cv/Ruan_CV.pdf" class="btn btn-primary btn-lg me-2">📄 Download CV</a>
+                        <a href="#projects" class="btn btn-outline-dark btn-lg">🚀 View My Projects</a>
+                    </div>
+                </div>
+            </section>
+            
+            
+            <section class="col-3">
+            </section>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">2025 Ruan van der Westhuizen</p>
+    </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

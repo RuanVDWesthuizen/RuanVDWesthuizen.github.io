@@ -12,9 +12,14 @@ h1 {
 div.exprerience-list{
     margin-left:2vw;
 }
-
+section.side-bar {
+    margin-left: 2vw;
+    margin-right: 1vw;
+    /*background: linear-gradient(180deg, #DCF9E0 0%, #FFFFFF 30.21%);*/
+    box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 /*Custom styles*/
-
 #message {
     font-weight: bold;
     color: #198754;
@@ -62,10 +67,22 @@ div.exprerience-list{
     color: #357ABD;
 }
 
-.category {
+.category.collapsible {
     color: #A9A9A9;
 }
 
 .category.collapsible:hover {
     color: #000000;
 }
+
+.star-rating {
+    color: lightgray; /* empty star color */
+}
+
+    .star-rating .star {
+        cursor: pointer;
+    }
+
+        .star-rating .star.filled {
+            color: gold; /* filled star color */
+        }
