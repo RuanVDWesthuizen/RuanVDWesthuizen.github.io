@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply - Ruan vd Westhuizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --surface-2: #222222;
+            --surface-3: #2a2a2a;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.18);
+            --text: #f0ede8;
+            --muted: #888580;
+            --accent: #c8a97e;
+            --accent-dim: rgba(200,169,126,0.12);
+            --accent-border: rgba(200,169,126,0.35);
+            --green: #78b478;
+            --green-dim: rgba(120,180,120,0.1);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            padding-bottom: 5rem;
+        }
+
+        /* ---- Avatar ---- */
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-border);
+            background: var(--accent-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ---- Name / tagline ---- */
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+
+        .profile-tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--accent);
+            line-height: 1.5;
+        }
+
+        /* ---- Tags ---- */
+        .tag {
+            font-size: 11px;
+            padding: 3px 11px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        /* ---- Stat cards ---- */
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 3px;
+            letter-spacing: 0.03em;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ---- Section eyebrow ---- */
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ---- Divider ---- */
+        .soft-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        /* ---- Bio ---- */
+        .bio-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.85;
+        }
+
+        /* ---- Interest cards ---- */
+        .interest-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+        }
+
+        .interest-icon {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .interest-name {
+            font-size: 13px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .interest-desc {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ---- Green flags ---- */
+        .flag {
+            background: var(--green-dim);
+            border: 1px solid rgba(120,180,120,0.2);
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+        }
+
+        .flag-icon {
+            color: var(--green);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .flag-text {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ---- Looking for box ---- */
+        .looking-box {
+            background: var(--surface);
+            border: 1px solid var(--accent-border);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .looking-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+        }
+
+        .looking-text {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ---- Form ---- */
+        .form-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-section-sub {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .f-label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 5px;
+            letter-spacing: 0.03em;
+        }
+
+        .f-input {
+            width: 100%;
+            background: var(--surface-3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.65rem 0.9rem;
+            font-size: 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.15s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+            .f-input::placeholder {
+                color: #555;
+            }
+
+            .f-input:focus {
+                border-color: var(--accent-border);
+            }
+
+        textarea.f-input {
+            height: 90px;
+            resize: vertical;
+        }
+
+        select.f-input {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+            select.f-input option {
+                background: #222;
+                color: var(--text);
+            }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--accent);
+            color: #0f0f0f;
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.15s;
+            letter-spacing: 0.01em;
+        }
+
+            .btn-submit:hover {
+                opacity: 0.88;
+            }
+
+            .btn-submit:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+        .disclaimer {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ---- Success ---- */
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+            .success-msg .s-icon {
+                font-size: 3rem;
+                color: var(--accent);
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .success-msg h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.5rem;
+                font-weight: 400;
+                color: var(--text);
+                margin-bottom: 0.5rem;
+            }
+
+            .success-msg p {
+                font-size: 14px;
+                color: var(--muted);
+                line-height: 1.7;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5" style="max-width:700px;">
+
+        <!-- Profile header -->
+        <div class="d-flex gap-4 align-items-start mb-4">
+            <div class="avatar">RvW</div>
+            <div>
+                <h1 class="profile-name">Ruan vd Westhuizen</h1>
+                <p class="profile-tagline mb-2">"Builds things with his hands, still figuring out what to do with his heart."</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="tag">188 cm</span>
+                    <span class="tag">25</span>
+                    <span class="tag">Cape Town</span>
+                    <span class="tag">Software Engineer</span>
+                    <span class="tag">Padel newbie</span>
+                    <span class="tag">Music obsessed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="row g-2 mb-4">
+            <div class="col-6 col-sm-3">
+                <div class="stat-card">
+                    <div class="stat-label">Looking for</div>
+                    <div class="stat-value">Life partner</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3">
+                <div class="stat-card">
+                    <div class="stat-label">Relationship style</div>
+                    <div class="stat-value">Equal partnership</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3">
+                <div class="stat-card">
+                    <div class="stat-label">Vibe</div>
+                    <div class="stat-value">Easy going</div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3">
+                <div class="stat-card">
+                    <div class="stat-label">Brain type</div>
+                    <div class="stat-value">Wired differently</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="soft-divider" />
+
+        <!-- Bio -->
+        <div class="mb-4">
+            <p class="eyebrow mb-3">About me</p>
+            <div class="bio-text">
+                <p class="mb-3">I'm 25, a Software Engineer by day, but the moment I close the laptop, I'm either in the workshop, outside, or with music playing somewhere in the background. I've built furniture from scratch (welding, woodworking, the whole deal), I work with leather, and I'm the kind of person who looks at a broken thing and immediately wants to fix it.</p>
+                <p class="mb-3">I've recently started playing padel and I'm hooked. Music isn't just something I listen to, it's how I process the world. There's always a song that fits the moment.</p>
+                <p class="mb-0">I can be a little awkward in new situations, not because I don't care, but because my brain just works differently. Give me five minutes and I'm fine. I'm a good listener, I remember the small things, and I'll show up when it matters.</p>
+            </div>
+        </div>
+
+        <hr class="soft-divider" />
+
+        <!-- Interests -->
+        <div class="mb-4">
+            <p class="eyebrow mb-3">What I'm into</p>
+            <div class="row g-2">
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-hammer interest-icon"></i>
+                        <div class="interest-name">Woodworking</div>
+                        <div class="interest-desc">Tables, stands, all of it</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-tools interest-icon"></i>
+                        <div class="interest-name">Welding</div>
+                        <div class="interest-desc">Chairs, frames, custom builds</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-scissors interest-icon"></i>
+                        <div class="interest-name">Leather sewing</div>
+                        <div class="interest-desc">The patient kind of craft</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-music-note-beamed interest-icon"></i>
+                        <div class="interest-name">Music</div>
+                        <div class="interest-desc">My everything, honestly</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-controller interest-icon"></i>
+                        <div class="interest-name">Gaming</div>
+                        <div class="interest-desc">Wind-down mode</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-tree interest-icon"></i>
+                        <div class="interest-name">Outdoors</div>
+                        <div class="interest-desc">Despite sitting at a desk all day</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-puzzle interest-icon"></i>
+                        <div class="interest-name">Problem solving</div>
+                        <div class="interest-desc">Puzzles, projects, ideas</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <div class="interest-card">
+                        <i class="bi bi-dribbble interest-icon"></i>
+                        <div class="interest-name">Padel</div>
+                        <div class="interest-desc">Recent obsession</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="soft-divider" />
+
+        <!-- Green flags -->
+        <div class="mb-4">
+            <p class="eyebrow mb-3">Green flags (self-reported, obviously)</p>
+            <div class="d-flex flex-column gap-2">
+                <div class="flag d-flex align-items-start gap-2">
+                    <i class="bi bi-check-lg flag-icon mt-1"></i>
+                    <span class="flag-text">I genuinely believe a relationship takes two equal people. I don't need to have all the answers, and I don't want to.</span>
+                </div>
+                <div class="flag d-flex align-items-start gap-2">
+                    <i class="bi bi-check-lg flag-icon mt-1"></i>
+                    <span class="flag-text">My core values are non-negotiable - but I'm easy-going about almost everything else. No ego trips, no drama.</span>
+                </div>
+                <div class="flag d-flex align-items-start gap-2">
+                    <i class="bi bi-check-lg flag-icon mt-1"></i>
+                    <span class="flag-text">I make things with my hands. You'll eventually end up with a custom gift you didn't ask for. That's just how I show love.</span>
+                </div>
+                <div class="flag d-flex align-items-start gap-2">
+                    <i class="bi bi-check-lg flag-icon mt-1"></i>
+                    <span class="flag-text">I'm a problem solver by nature - I find the mess interesting, not overwhelming.</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="soft-divider" />
+
+        <!-- Looking for -->
+        <div class="mb-4">
+            <div class="looking-box">
+                <div class="looking-title">What I'm actually looking for</div>
+                <p class="looking-text mb-0">A healthy, long-term relationship with someone who wants to build something real. Not the Instagram version, the one where you're genuinely glad to see each other at the end of the day, have honest conversations, and grow together. I'm not looking for someone perfect. Just someone who's willing to meet me halfway.</p>
+            </div>
+        </div>
+
+        <hr class="soft-divider" />
+
+        <!-- Application form -->
+        <div class="mb-4">
+            <h2 class="form-section-title">The application</h2>
+            <p class="form-section-sub mb-4">No right or wrong answers here - I'm just trying to get a sense of you. Take your time.</p>
+
+            <form id="applyForm" action="https://formspree.io/f/mnjkdnod" method="POST">
+                <input type="hidden" name="_subject" value="Date application" />
+                <input type="hidden" name="form_type" value="application" />
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-name">Your name</label>
+                    <input class="f-input" type="text" id="a-name" name="name" placeholder="What do I call you?" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-contact">Your number or email</label>
+                    <input class="f-input" type="text" id="a-contact" name="contact" placeholder="So this doesn't just disappear into the void" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-know">How do we know each other, or how did you find this?</label>
+                    <input class="f-input" type="text" id="a-know" name="how_we_know" placeholder="Mutual friend, total chaos, a QR code in the wild..." />
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-picnic">
+                        You're planning a picnic. What do you bring?
+                        <span style="color:var(--muted);font-size:11px;">(vibe check)</span>
+                    </label>
+                    <textarea class="f-input" id="a-picnic" name="q_picnic" placeholder="Be specific. This is important."></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-music">What's a song you'd play to set the mood on a long drive? Why that one?</label>
+                    <textarea class="f-input" id="a-music" name="q_music" placeholder="Music means everything to me - curious what it means to you"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-problem">You walk into a room and something is visibly broken. What do you do?</label>
+                    <select class="f-input" id="a-problem" name="q_problem">
+                        <option value="" disabled selected>Pick the honest one</option>
+                        <option>Immediately start figuring out how to fix it</option>
+                        <option>Leave it and pretend it's not there</option>
+                        <option>Google how to fix it aggressively</option>
+                        <option>Call someone who actually knows what they're doing</option>
+                        <option>It depends on the thing, honestly</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-outdoor">Outdoors or indoors when you have a free Saturday?</label>
+                    <select class="f-input" id="a-outdoor" name="q_outdoor">
+                        <option value="" disabled selected>Be honest</option>
+                        <option>Definitely outdoors - get me outside</option>
+                        <option>Indoors, I'm comfortable there</option>
+                        <option>Depends on the weather (and my mood)</option>
+                        <option>Both, ideally at the same time somehow</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="f-label" for="a-awkward">I mentioned I can be a bit awkward at first. How do you handle that?</label>
+                    <textarea class="f-input" id="a-awkward" name="q_awkward" placeholder="No wrong answer here - genuinely curious"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="f-label" for="a-anything">Anything you want to add? This is a free text box.</label>
+                    <textarea class="f-input" id="a-anything" name="extra" placeholder="Flex, ramble, ask a question, whatever feels right"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit mb-2" id="applySubmitBtn">Submit application &rarr;</button>
+                <p class="disclaimer text-center">Goes straight to me. No database, no third-party creepiness. Just me reading this in my own time.</p>
+            </form>
+
+            <div class="success-msg" id="applySuccess">
+                <i class="bi bi-envelope-check s-icon"></i>
+                <h3>Application received.</h3>
+                <p>I'll read it properly and get back to you.<br>Thanks for taking the time - it means something.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('applyForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('applySubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            try {
+                const res = await fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    this.style.display = 'none';
+                    document.getElementById('applySuccess').style.display = 'block';
+                } else {
+                    btn.textContent = 'Something went wrong \u2014 try again';
+                    btn.disabled = false;
+                }
+            } catch {
+                btn.textContent = 'Something went wrong \u2014 try again';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

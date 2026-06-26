@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find a date with Ruan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --surface-2: #222222;
+            --surface-3: #2a2a2a;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.18);
+            --text: #f0ede8;
+            --muted: #888580;
+            --accent: #c8a97e;
+            --accent-dim: rgba(200,169,126,0.12);
+            --accent-border: rgba(200,169,126,0.35);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            padding-bottom: 6rem;
+        }
+
+        /* ---- Header ---- */
+        .page-header {
+            border-bottom: 1px solid var(--border);
+            padding: 2.5rem 0 1.5rem;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+            .page-header h1 em {
+                color: var(--accent);
+            }
+
+        .page-header p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ---- Filter pills ---- */
+        .filter-pill {
+            font-size: 12px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            cursor: pointer;
+            background: transparent;
+            transition: all 0.15s;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+            .filter-pill:hover {
+                border-color: var(--border-hover);
+                color: var(--text);
+            }
+
+            .filter-pill.active {
+                border-color: var(--accent-border);
+                color: var(--accent);
+                background: var(--accent-dim);
+            }
+
+        /* ---- Category heading ---- */
+        .cat-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .cat-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ---- Date card ---- */
+        .date-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.1rem 1rem;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s, transform 0.12s;
+            user-select: none;
+            height: 100%;
+        }
+
+            .date-card:hover {
+                border-color: var(--accent-border);
+                background: var(--surface-2);
+                transform: translateY(-1px);
+            }
+
+            .date-card.selected {
+                border-color: var(--accent);
+                background: var(--accent-dim);
+            }
+
+            .date-card .dc-icon {
+                font-size: 1.4rem;
+                color: var(--accent);
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .date-card .dc-name {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--text);
+                margin-bottom: 0.2rem;
+            }
+
+            .date-card .dc-meta {
+                font-size: 11px;
+                color: var(--muted);
+            }
+
+        /* ---- CTA bar ---- */
+        .cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+            z-index: 100;
+        }
+
+            .cta-bar.visible {
+                transform: translateY(0);
+            }
+
+        .cta-label {
+            font-size: 14px;
+            color: var(--text);
+        }
+
+            .cta-label span {
+                color: var(--accent);
+                font-weight: 500;
+            }
+
+        .cta-btn {
+            background: var(--accent);
+            color: #0f0f0f;
+            border: none;
+            border-radius: 10px;
+            padding: 0.55rem 1.4rem;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.15s;
+        }
+
+            .cta-btn:hover {
+                opacity: 0.88;
+            }
+
+        /* ---- Modal ---- */
+        .modal-backdrop-custom {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+            .modal-backdrop-custom.open {
+                display: flex;
+            }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border-hover);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 460px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 1.75rem;
+            line-height: 1.5;
+        }
+
+        /* ---- Form fields ---- */
+        .f-label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 5px;
+            letter-spacing: 0.03em;
+        }
+
+        .f-input {
+            width: 100%;
+            background: var(--surface-3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.6rem 0.85rem;
+            font-size: 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+            .f-input:focus {
+                border-color: var(--accent-border);
+            }
+
+            .f-input::placeholder {
+                color: #555;
+            }
+
+        textarea.f-input {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 10px;
+            padding: 0.6rem;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+            .btn-cancel:hover {
+                border-color: var(--border-hover);
+                color: var(--text);
+            }
+
+        .btn-submit {
+            flex: 2;
+            background: var(--accent);
+            color: #0f0f0f;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6rem;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+            .btn-submit:hover {
+                opacity: 0.88;
+            }
+
+            .btn-submit:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+        .success-msg {
+            text-align: center;
+            padding: 2.5rem 0;
+        }
+
+            .success-msg .s-icon {
+                font-size: 2.5rem;
+                color: var(--accent);
+                margin-bottom: 1rem;
+                display: block;
+            }
+
+            .success-msg h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.3rem;
+                font-weight: 400;
+                color: var(--text);
+                margin-bottom: 0.5rem;
+            }
+
+            .success-msg p {
+                font-size: 13px;
+                color: var(--muted);
+                line-height: 1.6;
+            }
+
+        /* ---- Hidden category ---- */
+        .cat-section.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="container" style="max-width:700px;">
+            <p class="eyebrow mb-1">Pick something fun</p>
+            <h1>Find a <em>date</em> with Ruan</h1>
+            <p>Browse the categories, tap what sounds good, and send a request. I'll take it from there.</p>
+        </div>
+    </header>
+
+    <!-- Filter pills -->
+    <div class="container mt-3" style="max-width:700px;">
+        <div class="d-flex flex-wrap gap-2">
+            <button class="filter-pill active" data-filter="all">All</button>
+            <button class="filter-pill" data-filter="outdoors">Outdoors</button>
+            <button class="filter-pill" data-filter="home">Home</button>
+            <button class="filter-pill" data-filter="food">Food</button>
+            <button class="filter-pill" data-filter="explore">Explore</button>
+            <button class="filter-pill" data-filter="creative">Creative</button>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="container mt-4" style="max-width:700px;">
+
+        <!-- Outdoors -->
+        <div class="cat-section mb-4" data-cat="outdoors">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-tree cat-icon" style="color:var(--accent);font-size:1.1rem;"></i>
+                <span class="cat-label">Outdoors</span>
+                <div class="cat-line"></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Camping">
+                        <i class="bi bi-moon-stars dc-icon"></i>
+                        <div class="dc-name">Camping</div>
+                        <div class="dc-meta">Overnight, stars included</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Hiking">
+                        <i class="bi bi-map dc-icon"></i>
+                        <div class="dc-name">Hiking</div>
+                        <div class="dc-meta">Half day, good shoes required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Beach walk">
+                        <i class="bi bi-water dc-icon"></i>
+                        <div class="dc-name">Beach walk</div>
+                        <div class="dc-meta">Casual, bring sunscreen</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Picnic">
+                        <i class="bi bi-basket dc-icon"></i>
+                        <div class="dc-name">Picnic</div>
+                        <div class="dc-meta">Afternoon, I'll sort the snacks</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Padel">
+                        <i class="bi bi-dribbble dc-icon"></i>
+                        <div class="dc-name">Padel</div>
+                        <div class="dc-meta">1-2 hrs, I'll go easy on you</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Sunset drive">
+                        <i class="bi bi-sunset dc-icon"></i>
+                        <div class="dc-name">Sunset drive</div>
+                        <div class="dc-meta">Evening, good playlist guaranteed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home -->
+        <div class="cat-section mb-4" data-cat="home">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-house cat-icon" style="color:var(--accent);font-size:1.1rem;"></i>
+                <span class="cat-label">Home</span>
+                <div class="cat-line"></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Puzzles">
+                        <i class="bi bi-puzzle dc-icon"></i>
+                        <div class="dc-name">Puzzles</div>
+                        <div class="dc-meta">2-4 hrs, competitive optional</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Board games">
+                        <i class="bi bi-dice-5 dc-icon"></i>
+                        <div class="dc-name">Board games</div>
+                        <div class="dc-meta">Evening, trash talk welcome</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Movie night">
+                        <i class="bi bi-film dc-icon"></i>
+                        <div class="dc-name">Movie night</div>
+                        <div class="dc-meta">Evening, you pick, I provide snacks</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Series marathon">
+                        <i class="bi bi-display dc-icon"></i>
+                        <div class="dc-name">Series marathon</div>
+                        <div class="dc-meta">All day, no judgment on rewatches</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Reading together">
+                        <i class="bi bi-book dc-icon"></i>
+                        <div class="dc-name">Reading together</div>
+                        <div class="dc-meta">Quiet, comfortable silence is an art</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Gaming session">
+                        <i class="bi bi-controller dc-icon"></i>
+                        <div class="dc-name">Gaming session</div>
+                        <div class="dc-meta">Chill, co-op or versus, your call</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food -->
+        <div class="cat-section mb-4" data-cat="food">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-egg-fried cat-icon" style="color:var(--accent);font-size:1.1rem;"></i>
+                <span class="cat-label">Food</span>
+                <div class="cat-line"></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Cook together">
+                        <i class="bi bi-fire dc-icon"></i>
+                        <div class="dc-name">Cook together</div>
+                        <div class="dc-meta">Evening, aprons not included</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Braai">
+                        <i class="bi bi-balloon-heart dc-icon"></i>
+                        <div class="dc-name">Braai</div>
+                        <div class="dc-meta">Afternoon, I'm a fire guy</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Coffee date">
+                        <i class="bi bi-cup-hot dc-icon"></i>
+                        <div class="dc-name">Coffee date</div>
+                        <div class="dc-meta">Casual first step, low stakes</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="New restaurant">
+                        <i class="bi bi-shop dc-icon"></i>
+                        <div class="dc-name">New restaurant</div>
+                        <div class="dc-meta">Evening, we order adventurously</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Street food tour">
+                        <i class="bi bi-geo-alt dc-icon"></i>
+                        <div class="dc-name">Street food tour</div>
+                        <div class="dc-meta">Afternoon, comfortable shoes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore -->
+        <div class="cat-section mb-4" data-cat="explore">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-compass cat-icon" style="color:var(--accent);font-size:1.1rem;"></i>
+                <span class="cat-label">Explore</span>
+                <div class="cat-line"></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Farmers market">
+                        <i class="bi bi-bag dc-icon"></i>
+                        <div class="dc-name">Farmers market</div>
+                        <div class="dc-meta">Morning, bring a tote bag</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Art gallery">
+                        <i class="bi bi-easel dc-icon"></i>
+                        <div class="dc-name">Art gallery</div>
+                        <div class="dc-meta">Afternoon, big opinions welcome</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Flea market">
+                        <i class="bi bi-tags dc-icon"></i>
+                        <div class="dc-name">Flea market</div>
+                        <div class="dc-meta">Morning, you'll find something random</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Live music">
+                        <i class="bi bi-music-note-beamed dc-icon"></i>
+                        <div class="dc-name">Live music</div>
+                        <div class="dc-meta">Evening, music is everything to me</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Road trip">
+                        <i class="bi bi-signpost-split dc-icon"></i>
+                        <div class="dc-name">Road trip</div>
+                        <div class="dc-meta">Day trip, windows down</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creative -->
+        <div class="cat-section mb-4" data-cat="creative">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-tools cat-icon" style="color:var(--accent);font-size:1.1rem;"></i>
+                <span class="cat-label">Creative</span>
+                <div class="cat-line"></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Workshop project">
+                        <i class="bi bi-hammer dc-icon"></i>
+                        <div class="dc-name">Workshop project</div>
+                        <div class="dc-meta">Afternoon, make something together</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Pottery class">
+                        <i class="bi bi-brush dc-icon"></i>
+                        <div class="dc-name">Pottery class</div>
+                        <div class="dc-meta">2 hrs, Ghost-style or real</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Paint and sip">
+                        <i class="bi bi-palette dc-icon"></i>
+                        <div class="dc-name">Paint &amp; sip</div>
+                        <div class="dc-meta">Evening, masterpieces not required</div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="date-card" data-name="Music session">
+                        <i class="bi bi-headphones dc-icon"></i>
+                        <div class="dc-name">Music session</div>
+                        <div class="dc-meta">Chill, you share yours, I'll share mine</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /container -->
+    <!-- CTA bar -->
+    <div class="cta-bar" id="ctaBar">
+        <div class="cta-label">Selected: <span id="ctaSelected">&mdash;</span></div>
+        <button class="cta-btn" id="ctaBtn">Request this date &rarr;</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-backdrop-custom" id="modalOverlay">
+        <div class="modal-box">
+            <div id="formWrap">
+                <h2 class="modal-title" id="modalTitle">Let's make it happen</h2>
+                <p class="modal-sub" id="modalSub">Fill in the details and I'll get back to you.</p>
+
+                <form id="dateForm" action="https://formspree.io/f/mnjkdnod" method="POST">
+                    <input type="hidden" name="_subject" id="hiddenSubject" value="Date request" />
+                    <input type="hidden" name="date_idea" id="hiddenDate" value="" />
+
+                    <div class="mb-3">
+                        <label class="f-label" for="d-name">Your name</label>
+                        <input class="f-input" type="text" id="d-name" name="name" placeholder="First name is fine" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="f-label" for="d-contact">Your number or email</label>
+                        <input class="f-input" type="text" id="d-contact" name="contact" placeholder="So I can actually reply" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="f-label" for="d-when">When works for you? (rough idea is fine)</label>
+                        <input class="f-input" type="text" id="d-when" name="preferred_time" placeholder="e.g. Weekend afternoons, evenings after 6..." />
+                    </div>
+                    <div class="mb-3">
+                        <label class="f-label" for="d-note">Anything else I should know?</label>
+                        <textarea class="f-input" id="d-note" name="note" placeholder="Allergies, a better idea, or just a hello, whatever feels right"></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn-submit" id="submitBtn">Send request &rarr;</button>
+                    </div>
+                </form>
+
+                <div id="successMsg" class="success-msg" style="display:none;">
+                    <i class="bi bi-check-circle s-icon"></i>
+                    <h3>Request sent!</h3>
+                    <p>I'll be in touch. Looking forward to it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Filter
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const filter = pill.dataset.filter;
+        document.querySelectorAll('.cat-section').forEach(cat => {
+          cat.classList.toggle('hidden', filter !== 'all' && cat.dataset.cat !== filter);
+        });
+      });
+    });
+
+    // Card selection
+    let selectedDate = null;
+    const ctaBar = document.getElementById('ctaBar');
+    const ctaSelected = document.getElementById('ctaSelected');
+
+    document.querySelectorAll('.date-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedDate = card.dataset.name;
+        ctaSelected.textContent = selectedDate;
+        ctaBar.classList.add('visible');
+      });
+    });
+
+    // Open modal
+    document.getElementById('ctaBtn').addEventListener('click', () => {
+      if (!selectedDate) return;
+      document.getElementById('modalTitle').textContent = selectedDate;
+      document.getElementById('hiddenDate').value = selectedDate;
+      document.getElementById('hiddenSubject').value = 'Date request: ' + selectedDate;
+      document.getElementById('successMsg').style.display = 'none';
+      document.getElementById('dateForm').style.display = '';
+      document.getElementById('modalOverlay').classList.add('open');
+      document.getElementById('d-name').focus();
+    });
+
+    // Close modal
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      document.getElementById('modalOverlay').classList.remove('open');
+    });
+    document.getElementById('modalOverlay').addEventListener('click', e => {
+      if (e.target === document.getElementById('modalOverlay')) {
+        document.getElementById('modalOverlay').classList.remove('open');
+      }
+    });
+
+    // Submit via AJAX
+    document.getElementById('dateForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      try {
+        const res = await fetch(e.target.action, {
+          method: 'POST',
+          body: new FormData(e.target),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          e.target.style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+          document.querySelectorAll('.date-card').forEach(c => c.classList.remove('selected'));
+          ctaBar.classList.remove('visible');
+          selectedDate = null;
+          e.target.reset();
+        } else {
+          btn.textContent = 'Something went wrong \u2014 try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong \u2014 try again';
+        btn.disabled = false;
+      }
+    });
+    </script>
+</body>
+</html>
